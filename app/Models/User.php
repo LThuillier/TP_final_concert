@@ -29,4 +29,15 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+     // Relation : Un utilisateur possède plusieurs tickets
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
+    // Relation : Un utilisateur possède plusieurs paiements
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
 }
