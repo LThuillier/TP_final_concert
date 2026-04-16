@@ -25,3 +25,9 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+use App\Http\Controllers\TicketController;
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::resource('tickets', TicketController::class)->only(['index', 'create', 'store']);
+});
