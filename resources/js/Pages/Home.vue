@@ -44,6 +44,12 @@ defineProps({
                             Mes billets
                         </Link>
                         <Link
+                            :href="route('payments.index')"
+                            class="rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-500 hover:text-slate-900"
+                        >
+                            Mes paiements
+                        </Link>
+                        <Link
                             :href="route('tickets.create')"
                             class="rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-700"
                         >

@@ -1,16 +1,21 @@
 <?php
 
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\UserController;
+use App\Models\Ticket;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::get('/', function () {
-    return Inertia::render('Home', [
-        'appName' => config('app.name', 'FestivApp'),
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'tickets' => [
+    $tickets = Ticket::query()
+        ->latest()
+        ->limit(6)
+        ->get(['id', 'title', 'description', 'status']);
+
+    if ($tickets->isEmpty()) {
+        $tickets = collect([
             [
                 'id' => 1,
                 'title' => 'Pass Festival 1 jour',
@@ -47,7 +52,14 @@ Route::get('/', function () {
                 'description' => 'Acces backstage limite avec souvenirs et rencontre equipe.',
                 'status' => 'places limitees',
             ],
-        ],
+        ]);
+    }
+
+    return Inertia::render('Home', [
+        'appName' => config('app.name', 'FestivApp'),
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'tickets' => $tickets,
     ]);
 })->name('home');
 
@@ -63,6 +75,8 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('tickets', TicketController::class)->only(['index', 'create', 'store']);
+    Route::resource('payments', PaymentController::class)->only(['index', 'create', 'store']);
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
 });
 
 require __DIR__.'/auth.php';

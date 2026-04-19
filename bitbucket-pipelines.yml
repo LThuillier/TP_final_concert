@@ -1,0 +1,28 @@
+image: php:8.3
+
+pipelines:
+  default:
+    - step:
+        name: Build and Test
+        caches:
+          - composer
+          - node
+        script:
+          - apt-get update && apt-get install -y git unzip zip curl nodejs npm libzip-dev
+          - docker-php-ext-install pdo pdo_mysql
+          - pecl install mongodb
+          - docker-php-ext-enable mongodb
+          - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+          - composer install --no-interaction --prefer-dist --optimize-autoloader
+          - cp .env.example .env
+          - php artisan key:generate
+          - touch database/database.sqlite
+          - php artisan migrate --force
+          - npm ci
+          - npm run build
+          - php artisan test
+
+definitions:
+  caches:
+    composer: ~/.composer/cache
+    node: ~/.npm

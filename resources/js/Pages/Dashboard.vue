@@ -36,6 +36,12 @@ import { Head, Link } from '@inertiajs/vue3';
                                 Acheter un billet
                             </Link>
                             <Link
+                                :href="route('payments.index')"
+                                class="rounded-md border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-500"
+                            >
+                                Mes paiements
+                            </Link>
+                            <Link
                                 :href="route('home')"
                                 class="rounded-md border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:border-slate-500"
                             >

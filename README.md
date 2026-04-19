@@ -7,6 +7,31 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Projet BTS - FestivApp
+
+Fonctionnalites implementees pour les consignes du sujet:
+- Authentification Laravel Breeze.
+- Gestion des billets (`tickets`) avec filtre de mots interdits.
+- Gestion des paiements (`payments`).
+- Roles/permissions via Spatie (`admin`, `client`).
+- API avancee tickets:
+  - `GET /api/open-tickets`
+  - `GET /api/closed-tickets`
+  - `GET /api/users/{email}/tickets`
+  - `GET /api/stats`
+- Tests fonctionnels (tickets, paiements, API).
+- Industrialisation:
+  - `Dockerfile`
+  - `docker-compose.yml`
+  - `bitbucket-pipelines.yml`
+
+Documentation complementaire:
+- [Guide Agile](docs/AGILE.md)
+- [Guide API](docs/API.md)
+- [Guide Deploiement](docs/DEPLOYMENT.md)
+- [Guide Maintenance](docs/MAINTENANCE.md)
+- [Guide Contribution](CONTRIBUTING.md)
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

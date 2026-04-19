@@ -57,6 +57,18 @@ const showingNavigationDropdown = ref(false);
                                 >
                                     Nouveau Billet
                                 </NavLink>
+                                <NavLink
+                                    :href="route('payments.index')"
+                                    :active="route().current('payments.*')"
+                                >
+                                    Paiements
+                                </NavLink>
+                                <NavLink
+                                    :href="route('users.index')"
+                                    :active="route().current('users.index')"
+                                >
+                                    Utilisateurs
+                                </NavLink>
                             </div>
                         </div>
 
@@ -181,6 +193,18 @@ const showingNavigationDropdown = ref(false);
                             :active="route().current('tickets.create')"
                         >
                             Nouveau Billet
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('payments.index')"
+                            :active="route().current('payments.*')"
+                        >
+                            Paiements
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('users.index')"
+                            :active="route().current('users.index')"
+                        >
+                            Utilisateurs
                         </ResponsiveNavLink>
                     </div>
 
