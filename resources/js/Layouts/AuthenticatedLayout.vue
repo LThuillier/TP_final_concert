@@ -22,7 +22,7 @@ const showingNavigationDropdown = ref(false);
                         <div class="flex">
                             <!-- Logo -->
                             <div class="flex shrink-0 items-center">
-                                <Link :href="route('dashboard')">
+                                <Link :href="route('home')">
                                     <ApplicationLogo
                                         class="block h-9 w-auto fill-current text-gray-800"
                                     />
@@ -34,10 +34,28 @@ const showingNavigationDropdown = ref(false);
                                 class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex"
                             >
                                 <NavLink
+                                    :href="route('home')"
+                                    :active="route().current('home')"
+                                >
+                                    Accueil
+                                </NavLink>
+                                <NavLink
                                     :href="route('dashboard')"
                                     :active="route().current('dashboard')"
                                 >
                                     Dashboard
+                                </NavLink>
+                                <NavLink
+                                    :href="route('tickets.index')"
+                                    :active="route().current('tickets.*')"
+                                >
+                                    Mes Billets
+                                </NavLink>
+                                <NavLink
+                                    :href="route('tickets.create')"
+                                    :active="route().current('tickets.create')"
+                                >
+                                    Nouveau Billet
                                 </NavLink>
                             </div>
                         </div>
@@ -141,10 +159,28 @@ const showingNavigationDropdown = ref(false);
                 >
                     <div class="space-y-1 pb-3 pt-2">
                         <ResponsiveNavLink
+                            :href="route('home')"
+                            :active="route().current('home')"
+                        >
+                            Accueil
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
                             :href="route('dashboard')"
                             :active="route().current('dashboard')"
                         >
                             Dashboard
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('tickets.index')"
+                            :active="route().current('tickets.*')"
+                        >
+                            Mes Billets
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            :href="route('tickets.create')"
+                            :active="route().current('tickets.create')"
+                        >
+                            Nouveau Billet
                         </ResponsiveNavLink>
                     </div>
 

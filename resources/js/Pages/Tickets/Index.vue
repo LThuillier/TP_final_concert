@@ -9,7 +9,15 @@ defineProps({ tickets: Array });
     <Head title="Mes Billets" />
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">Mes Billets de Concert</h2>
+            <div class="flex items-center justify-between gap-3">
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">Mes Billets de Concert</h2>
+                <Link
+                    :href="route('home')"
+                    class="rounded-md border border-slate-300 px-3 py-1.5 text-sm font-semibold text-slate-700 transition hover:border-slate-500"
+                >
+                    Accueil
+                </Link>
+            </div>
         </template>
 
         <div class="py-12">

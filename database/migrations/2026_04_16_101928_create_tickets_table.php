@@ -13,12 +13,11 @@ return new class extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->string('title');
             $table->text('description')->nullable();
-            $table->string('status')->default('disponible'); // 'disponible', 'réservé', 'vendu'
-            // Clé étrangère vers la table users :
+            $table->string('status')->default('disponible');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
