@@ -6,13 +6,27 @@ use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UserController;
 use App\Models\Ticket;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Schema;
 use Inertia\Inertia;
 
+Route::post('/locale/{locale}', function (string $locale) {
+    abort_unless(in_array($locale, ['fr', 'en'], true), 400);
+
+    session(['locale' => $locale]);
+    app()->setLocale($locale);
+
+    return back();
+})->name('locale.switch');
+
 Route::get('/', function () {
-    $tickets = Ticket::query()
-        ->latest()
-        ->limit(6)
-        ->get(['id', 'title', 'description', 'status']);
+    $tickets = collect();
+
+    if (Schema::hasTable('tickets')) {
+        $tickets = Ticket::query()
+            ->latest()
+            ->limit(6)
+            ->get(['id', 'title', 'description', 'status']);
+    }
 
     if ($tickets->isEmpty()) {
         $tickets = collect([
@@ -57,8 +71,18 @@ Route::get('/', function () {
 
     return Inertia::render('Home', [
         'appName' => config('app.name', 'FestivApp'),
+        'locale' => app()->getLocale(),
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
+        'labels' => [
+            'ticketsBanner' => __('messages.tickets_banner'),
+            'homeTitle' => __('messages.home_title'),
+            'homeSubtitle' => __('messages.home_subtitle'),
+            'availableTickets' => __('messages.available_tickets'),
+            'sprintBacklog' => __('messages.sprint_backlog'),
+            'sprintCurrent' => __('messages.sprint_current'),
+            'validation' => __('messages.validation'),
+        ],
         'tickets' => $tickets,
     ]);
 })->name('home');

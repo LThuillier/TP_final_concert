@@ -22,31 +22,35 @@ class DatabaseSeeder extends Seeder
         Role::findOrCreate('admin');
         Role::findOrCreate('client');
 
-        $admin = User::factory()->create([
+        $admin = User::query()->updateOrCreate([
+            'email' => 'admin@admin.com',
+        ], [
             'name' => 'Admin User',
-            'email' => 'admin@example.com',
-            'password' => Hash::make('password'),
+            'password' => Hash::make('adminpassword'),
         ]);
-        $admin->assignRole('admin');
+        $admin->syncRoles(['admin']);
 
-        $user = User::factory()->create([
-            'name' => 'Test User',
+        $user = User::query()->updateOrCreate([
             'email' => 'test@example.com',
+        ], [
+            'name' => 'Test User',
             'password' => Hash::make('password'),
         ]);
-        $user->assignRole('client');
+        $user->syncRoles(['client']);
 
-        Ticket::query()->create([
+        Ticket::query()->firstOrCreate([
             'title' => 'Pass Festival 1 jour',
+            'user_id' => $user->id,
+        ], [
             'description' => 'Billet de demonstration pour les tests manuels.',
             'status' => 'disponible',
-            'user_id' => $user->id,
         ]);
 
-        Payment::query()->create([
-            'amount' => 49.90,
-            'status' => 'en attente',
+        Payment::query()->firstOrCreate([
             'user_id' => $user->id,
+            'amount' => 49.90,
+        ], [
+            'status' => 'en attente',
         ]);
     }
 }

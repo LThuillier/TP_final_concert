@@ -30,6 +30,8 @@ Documentation complementaire:
 - [Guide API](docs/API.md)
 - [Guide Deploiement](docs/DEPLOYMENT.md)
 - [Guide Maintenance](docs/MAINTENANCE.md)
+- [Cahier Des Charges](docs/CAHIER_DES_CHARGES.md)
+- [Diagrammes UML](docs/UML.md)
 - [Guide Contribution](CONTRIBUTING.md)
 
 ## About Laravel

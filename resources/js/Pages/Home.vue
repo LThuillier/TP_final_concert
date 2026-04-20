@@ -14,6 +14,14 @@ defineProps({
         type: Boolean,
         default: false,
     },
+    locale: {
+        type: String,
+        default: 'fr',
+    },
+    labels: {
+        type: Object,
+        default: () => ({}),
+    },
     tickets: {
         type: Array,
         default: () => [],
@@ -28,7 +36,7 @@ defineProps({
         <header class="border-b border-slate-200 bg-white/90 backdrop-blur">
             <div class="mx-auto grid max-w-7xl grid-cols-1 items-center gap-3 px-4 py-4 sm:grid-cols-3 sm:px-6 lg:px-8">
                 <p class="hidden text-sm font-semibold text-slate-500 sm:block">
-                    Billets de concert
+                    {{ labels.ticketsBanner ?? 'Billets de concert' }}
                 </p>
 
                 <h1 class="text-center text-2xl font-black tracking-wide">
@@ -36,6 +44,22 @@ defineProps({
                 </h1>
 
                 <nav class="flex items-center justify-center gap-2 sm:justify-end">
+                    <Link
+                        :href="route('locale.switch', 'fr')"
+                        method="post"
+                        as="button"
+                        class="rounded-full border border-slate-300 px-3 py-1 text-xs font-semibold text-slate-700 transition hover:border-slate-500"
+                    >
+                        FR
+                    </Link>
+                    <Link
+                        :href="route('locale.switch', 'en')"
+                        method="post"
+                        as="button"
+                        class="rounded-full border border-slate-300 px-3 py-1 text-xs font-semibold text-slate-700 transition hover:border-slate-500"
+                    >
+                        EN
+                    </Link>
                     <template v-if="$page.props.auth.user">
                         <Link
                             :href="route('tickets.index')"
@@ -83,10 +107,10 @@ defineProps({
                     Page principale
                 </p>
                 <h2 class="mt-3 text-3xl font-black sm:text-4xl">
-                    Decouvre les differents billets de concert
+                    {{ labels.homeTitle ?? 'Decouvre les differents billets de concert' }}
                 </h2>
                 <p class="mt-4 max-w-2xl text-sm text-slate-200 sm:text-base">
-                    Choisis ton offre, cree ton compte et gere tes billets facilement dans l'application.
+                    {{ labels.homeSubtitle ?? 'Choisis ton offre, cree ton compte et gere tes billets facilement dans l application.' }}
                 </p>
 
                 <div class="mt-6 flex flex-wrap gap-3">
@@ -126,7 +150,7 @@ defineProps({
 
             <section class="mt-10">
                 <div class="mb-5 flex items-center justify-between">
-                    <h3 class="text-2xl font-black">Billets disponibles</h3>
+                    <h3 class="text-2xl font-black">{{ labels.availableTickets ?? 'Billets disponibles' }}</h3>
                     <Link
                         :href="route('home')"
                         class="text-sm font-semibold text-slate-600 transition hover:text-slate-900"
@@ -185,25 +209,19 @@ defineProps({
 
             <section class="mt-10 grid gap-4 md:grid-cols-3">
                 <article class="rounded-2xl border border-slate-200 bg-white p-5">
-                    <h4 class="text-sm font-bold uppercase tracking-wide text-slate-500">
-                        Sprint backlog
-                    </h4>
+                    <h4 class="text-sm font-bold uppercase tracking-wide text-slate-500">{{ labels.sprintBacklog ?? 'Sprint backlog' }}</h4>
                     <p class="mt-2 text-sm text-slate-700">
                         Consulter les billets et preparer l'achat.
                     </p>
                 </article>
                 <article class="rounded-2xl border border-slate-200 bg-white p-5">
-                    <h4 class="text-sm font-bold uppercase tracking-wide text-slate-500">
-                        Sprint en cours
-                    </h4>
+                    <h4 class="text-sm font-bold uppercase tracking-wide text-slate-500">{{ labels.sprintCurrent ?? 'Sprint en cours' }}</h4>
                     <p class="mt-2 text-sm text-slate-700">
                         Creer un billet puis verifier son statut.
                     </p>
                 </article>
                 <article class="rounded-2xl border border-slate-200 bg-white p-5">
-                    <h4 class="text-sm font-bold uppercase tracking-wide text-slate-500">
-                        Validation
-                    </h4>
+                    <h4 class="text-sm font-bold uppercase tracking-wide text-slate-500">{{ labels.validation ?? 'Validation' }}</h4>
                     <p class="mt-2 text-sm text-slate-700">
                         Tester les parcours Register, Log in et billets.
                     </p>
